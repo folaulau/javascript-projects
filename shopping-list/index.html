@@ -35,7 +35,7 @@
                 <!-- add box -->
                 <div class="row">
                     <div class="col-9">
-                        <input class="form-control" placeholder="e.g saimini">
+                        <input class="form-control" placeholder="e.g saimini" id="newItem">
                     </div>
                     <div class="col-3 d-grid gap-2">
                         <button class="btn btn-primary" type="button" id="submitBtn">Submit</button>
@@ -50,7 +50,7 @@
                 <!-- Clear all buttons -->
                 <div class="row">
                     <div class="col-12 text-center">
-                        <button type="button" class="btn btn-outline-primary">Clear Items</button>
+                        <button type="button" onclick="remoteAllItems()" class="btn btn-outline-primary">Clear Items</button>
                     </div>
                 </div>
 
@@ -64,18 +64,20 @@
         crossorigin="anonymous"></script>
 
     <script>
-        let shoppingList = ["chicken"];
+        let shoppingList = ["Chicken"];
 
         displayShoppingList();
 
         function displayShoppingList(){
+            console.log(shoppingList);
+
             let shoppingListContent = "";
 
             for(let i=0;i<shoppingList.length;i++){
                 let item = shoppingList[i];
 
                 let itemContent = `
-                <div class="row">
+                <div class="row mt-2">
                     <div class="col-4 text-left">
                         <div class="row itemName">
                             <div class="col-12">
@@ -84,10 +86,10 @@
                         </div>
                     </div>
                     <div class="offset-4 col-4 itemBtns">
-                        <button type="button" class="btn btn-labeled btn-outline-success">
+                        <button type="button" onclick="updateItem(`+i+`)" class="btn btn-labeled btn-outline-success">
                             <span class="btn-label"><i class="fa fa-pencil"></i></span>
                         </button>
-                        <button type="button" class="btn btn-labeled btn-danger">
+                        <button type="button" onclick="remoteItem(`+i+`)" class="btn btn-labeled btn-danger">
                             <span class="btn-label"><i class="fa fa-trash"></i></span>
                         </button>
                     </div>
@@ -101,7 +103,32 @@
 
         document.getElementById("submitBtn").addEventListener("click", function() {
             console.log("add item");
+            shoppingList.push(document.getElementById("newItem").value);
+            document.getElementById("newItem").value = "";
+            displayShoppingList();
         });
+
+        function updateItem(index){
+
+            console.log("remove index: "+index);
+
+            document.getElementById("newItem").value = shoppingList[index];
+
+            shoppingList.splice(index,1);
+
+            displayShoppingList();
+        }
+
+        function remoteItem(index){
+            console.log("remove index: "+index);
+            shoppingList.splice(index,1);
+            displayShoppingList();
+        }
+
+        function remoteAllItems(){
+            shoppingList = [];
+            displayShoppingList();
+        }
 
 
     </script>
