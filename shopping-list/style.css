@@ -1,0 +1,18 @@
+
+.container{
+    background-color: rgba(241,245,248,255);
+}
+
+.shopping-list{
+    background-color: rgba(255,255,255,255);
+}
+
+.itemName{
+    text-align: left;
+    font-size: large;
+    font-weight: bold;
+}
+
+.itemBtns{
+    text-align: right;
+}
