@@ -13,7 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <meta name="theme-color" content="#7952b3">
 
@@ -50,7 +51,8 @@
                 <!-- Clear all buttons -->
                 <div class="row">
                     <div class="col-12 text-center">
-                        <button type="button" onclick="remoteAllItems()" class="btn btn-outline-primary">Clear Items</button>
+                        <button type="button" onclick="remoteAllItems()" class="btn btn-outline-primary">Clear
+                            Items</button>
                     </div>
                 </div>
 
@@ -66,14 +68,29 @@
     <script>
         let shoppingList = ["Chicken"];
 
+        /**
+         * 1. display list
+         * 2. add item to list
+         * 3. update item from list
+         * 4. delete item from list
+         * 5. delete all items from list
+         */
+
         displayShoppingList();
 
-        function displayShoppingList(){
+        /**
+         * 1. display list
+         * a. start with empty list or default value(chickent)
+         * b. use html code as template
+         * c. loop through each item on list
+         * d. add all item content and display it
+         */
+        function displayShoppingList() {
             console.log(shoppingList);
 
             let shoppingListContent = "";
 
-            for(let i=0;i<shoppingList.length;i++){
+            for (let i = 0; i < shoppingList.length; i++) {
                 let item = shoppingList[i];
 
                 let itemContent = `
@@ -81,15 +98,15 @@
                     <div class="col-4 text-left">
                         <div class="row itemName">
                             <div class="col-12">
-                                `+item+`
+                                `+ item + `
                             </div>
                         </div>
                     </div>
                     <div class="offset-4 col-4 itemBtns">
-                        <button type="button" onclick="updateItem(`+i+`)" class="btn btn-labeled btn-outline-success">
+                        <button type="button" onclick="updateItem(`+ i + `)" class="btn btn-labeled btn-outline-success">
                             <span class="btn-label"><i class="fa fa-pencil"></i></span>
                         </button>
-                        <button type="button" onclick="remoteItem(`+i+`)" class="btn btn-labeled btn-danger">
+                        <button type="button" onclick="remoteItem(`+ i + `)" class="btn btn-labeled btn-danger">
                             <span class="btn-label"><i class="fa fa-trash"></i></span>
                         </button>
                     </div>
@@ -101,31 +118,31 @@
             document.getElementById("itemList").innerHTML = shoppingListContent;
         }
 
-        document.getElementById("submitBtn").addEventListener("click", function() {
+        document.getElementById("submitBtn").addEventListener("click", function () {
             console.log("add item");
             shoppingList.push(document.getElementById("newItem").value);
             document.getElementById("newItem").value = "";
             displayShoppingList();
         });
 
-        function updateItem(index){
+        function updateItem(index) {
 
-            console.log("remove index: "+index);
+            console.log("remove index: " + index);
 
             document.getElementById("newItem").value = shoppingList[index];
 
-            shoppingList.splice(index,1);
+            shoppingList.splice(index, 1);
 
             displayShoppingList();
         }
 
-        function remoteItem(index){
-            console.log("remove index: "+index);
-            shoppingList.splice(index,1);
+        function remoteItem(index) {
+            console.log("remove index: " + index);
+            shoppingList.splice(index, 1);
             displayShoppingList();
         }
 
-        function remoteAllItems(){
+        function remoteAllItems() {
             shoppingList = [];
             displayShoppingList();
         }
