@@ -52,12 +52,12 @@
                     <div class="col-xs-12 col-sm-12">
                         <div class="row">
                             <div class="col-xs-12 col-sm-6 d-grid gap-2">
-                                <button onclick="showWithdrawalForm()" class="btn btn-outline-primary" id="showWithdrawalFormBtn"
-                                    type="button">Withdraw</button>
+                                <button onclick="showWithdrawalForm()" class="btn btn-outline-primary"
+                                    id="showWithdrawalFormBtn" type="button">Withdraw</button>
                             </div>
                             <div class="col-xs-12 col-sm-6 d-grid gap-2">
-                                <button onclick="showDepositForm()" class="btn btn-outline-primary" id="showDepositFormBtn"
-                                    type="button">Deposit</button>
+                                <button onclick="showDepositForm()" class="btn btn-outline-primary"
+                                    id="showDepositFormBtn" type="button">Deposit</button>
                             </div>
                         </div>
                         <div class="row" id="requestForm">
@@ -132,7 +132,7 @@
 
         document.getElementById("account").style.display = "none";
         document.getElementById("requestForm").style.display = "none";
-        
+
 
         function getUserByAccountNumber(accountNumber) {
             let user = users.find(function (user) {
@@ -162,7 +162,7 @@
             /**
              * 
              */
-             document.getElementById("account").style.display = "block";
+            document.getElementById("account").style.display = "block";
         }
 
         function showWithdrawalForm() {
@@ -170,6 +170,11 @@
             showAccountBalance(user);
             actionType = "WITHDRAW";
             document.getElementById("requestForm").style.display = "block";
+
+            var withBtn = document.getElementById("showWithdrawalFormBtn");
+            withBtn.classList.add("active");
+            var depositBtn = document.getElementById("showDepositFormBtn");
+            depositBtn.classList.remove("active");
         }
 
         function showDepositForm() {
@@ -177,20 +182,20 @@
             showAccountBalance(user);
             actionType = "DEPOSIT";
             document.getElementById("requestForm").style.display = "block";
+
+            // active withdrawal button
+            var withBtn = document.getElementById("showWithdrawalFormBtn");
+            withBtn.classList.remove("active");
+            var depositBtn = document.getElementById("showDepositFormBtn");
+            depositBtn.classList.add("active");
         }
 
         function processAccountRequest() {
             if (actionType === "WITHDRAW") {
-                var withBtn = document.getElementById("showWithdrawalFormBtn");
-                withBtn.classList.add("active");
-                var depositBtn = document.getElementById("showWithdrawalFormBtn");
-                depositBtn.classList.remove("active");
+
                 withDrawFromAccount();
             } else if (actionType === "DEPOSIT") {
-                var withBtn = document.getElementById("showWithdrawalFormBtn");
-                withBtn.classList.remove("active");
-                var depositBtn = document.getElementById("showWithdrawalFormBtn");
-                depositBtn.classList.add("active");
+
                 depositToAccount();
             }
         }
@@ -199,8 +204,9 @@
             let depositAmount = document.getElementById("requestAmount").value;
 
             depositAmount = parseFloat(depositAmount);
-
-            if (depositAmount <= 0) {
+            console.log(depositAmount)
+            
+            if (isNaN(depositAmount) || depositAmount <= 0) {
                 document.getElementById("accountRequestErrorMessage").innerHTML = "Invalid amount. Amount must be greater than 0";
                 document.getElementById("accountRequestError").style.display = "block";
                 return;
@@ -219,6 +225,7 @@
             user.checkingAccountBalance = checkingAccountBalance;
 
             document.getElementById("accountRequestError").style.display = "none";
+            document.getElementById("requestAmount").value = "";
 
             showAccountBalance(user)
         }
@@ -227,8 +234,10 @@
             let requestAmount = document.getElementById("requestAmount").value;
 
             withdrawalAmount = parseFloat(requestAmount);
+            
+            console.log(withdrawalAmount)
 
-            if (withdrawalAmount <= 0) {
+            if (isNaN(withdrawalAmount) || withdrawalAmount <= 0) {
                 document.getElementById("accountRequestErrorMessage").innerHTML = "Invalid amount. Amount must be greater than 0";
                 document.getElementById("accountRequestError").style.display = "block";
                 return;
@@ -247,6 +256,7 @@
             user.checkingAccountBalance = checkingAccountBalance;
 
             document.getElementById("accountRequestError").style.display = "none";
+            document.getElementById("requestAmount").value = "";
 
             showAccountBalance(user);
         }
